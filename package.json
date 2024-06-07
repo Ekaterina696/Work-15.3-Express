@@ -1,0 +1,22 @@
+{
+  "name": "work15.3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ekaterina696/Work-15.3-Express.git"
+  },
+  "author": "https://github.com/Ekaterina696",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ekaterina696/Work-15.3-Express/issues"
+  },
+  "homepage": "https://github.com/Ekaterina696/Work-15.3-Express#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
