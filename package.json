@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Ekaterina696/Work-15.3-Express#readme",
   "dependencies": {
     "express": "^4.19.2",
+    "mariadb": "^3.3.1",
     "mysql2": "^3.10.0",
     "sequelize": "^6.37.3"
   }
