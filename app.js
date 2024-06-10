@@ -1,56 +1,96 @@
 const express = require('express')
+const { User } = require('./models/init');
+
 const app = express()
-const port = 3000
 
 app.use(express.json());
 
-const users = [];
+const User = require('./models/User');
 
-app.get('/users', (req, res) => {
-    return res.json[{
-        items: users,
-        meta: {},
-    }];
+app.get('/users', async (req, res) => {
+    try {
+        const users = await User.findAll({});
+        return res.json({
+            items: users,
+        });
+    } catch (e) {
+        console.error(e);
+        return res.sendStatus(400);
+    }
 });
 
-app.get('/users/:id(\\d+)', (req, res) => {
-    const id = parseInt(req.params.id);
-    const user = users.find((item) => item.id === id);
-    if (user) {
+app.get('/users/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findByPk(id);
+
+        if (!user){
+            return res.sendStatus(404);
+        }
+
         return res.json(user);
-    } else {
-        return res.sendStatus(404);
+
+    } catch (e) {
+        console.error(e);
+        return res.sendStatus(400);
     }
 });
 
-app.post('/users', (req, res) => {
-users.push(req.body);
-return res.status(201).json(req.body);
+app.post('/users', async (req, res) => {
+    try {
+        
+    } catch (e) {
+        console.error(e);
+        return res.sendStatus(400);
+    }
 });
 
-app.patch('/users/:id(\\d+)', (req, res) => {
-    const id = parseInt(req.params.id);
-    const user_index = users.findIndex((item) => item.id === id);
+app.patch('/users/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findByPk(id);
 
-    if (user_index === -1) {
-        return res.sendStatus(404);
+        if (!user) {
+            return res.sendStatus(404);
+        }
+
+        if (req.body.name) {
+            user.name = req.body.name;
+        }
+
+        if (req.body.email) {
+            user.email = req.body.email;
+        }
+
+        if (req.body.password) {
+            user.password = req.body.password;
+        } 
+       
+        await user.save();
+
+        return res.json(user);
+    } catch (e) {
+        console.error(e);
+        return res.sendStatus(400);
     }
-
-    users[user_index] = req.body;
-    return res.json(users[user_index]);
 });
 
-app.delete('/users/:id(\\d+)', (req, res) => {
-    const id = parseInt(req.params.id);
-    const user_index = users.findIndex((item) => item.id === id);
+app.delete('/users/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findByPk(id);
 
-    if (user_index === -1) {
-        return res.sendStatus(404);
+        if (!user) {
+            return res.sendStatus(404);
+        }
+        
+        await user.destroy();
+
+        return res.sendStatus(204);
+    } catch (e) {
+        console.error(e);
+        return res.sendStatus(400);
     }
-
-    users.splice(user_index, 1);
-
-    return res.sendStatus(204);
 });
 
 app.listen(port, () => {

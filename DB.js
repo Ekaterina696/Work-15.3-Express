@@ -1,7 +1,9 @@
 const { Sequelize } = require('sequelize');
 
 
-export const sequelize = new Sequelize('web_2024', 'root', '', {
+const sequelize = new Sequelize('web_2024', 'root', '', {
     host: 'localhost',
-    dialect: 'mariadb', /* one of 'mysql' | 'mariadb' */
+    dialect: 'mysql', /* one of 'mysql' | 'mariadb' */
 });
+
+module.exports = sequelize;
